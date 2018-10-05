@@ -1,46 +1,41 @@
-const express = require('express');
-const morgan = require('morgan');
+//Tools
 
-const app = express();
+const express  = require('express');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash    = require('connect-flash');
+
+const morgan       = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser   = require('body-parser');
+const session      = require('express-session');
+
+const app  = express();
+const port = process.env.PORT || 8080;
+
+//Configuration
+
+const configDB = require('./config/database.js');
+mongoose.connect(configDB.url);
+require('./config/passport')(passport);
+
+//Express Setup
 
 app.use(morgan('common'));
-app.use(express.static('public'));
-app.listen(process.env.PORT || 8080);
+app.use(cookieParser());
+app.use(bodyParser());
+app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-  res.status(200);
-});
+//Passport Setup
 
-let server;
+app.use(session({ secret: 'operationcantwaitanylonger' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-function runServer() {
-  const port = process.env.PORT || 8080;
-  return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      console.log(`Your app is listening on port ${port}`);
-      resolve(server);
-    }).on('error', err => {
-      reject(err);
-    });
-  });
-}
+//Routes
+require('./app/routes.js')(app, passport);
 
-function closeServer() {
-  return new Promise((resolve, reject) => {
-    console.log('Closing server');
-    server.close(err => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve();
-    });
-  });
-}
-
-if (require.main === module) {
-  runServer().catch(err => console.error(err));
-}
-
-module.exports = {app, runServer, closeServer};
+//Server Launch
+app.listen(port);
+console.log('The magic happens on port ' + port);
