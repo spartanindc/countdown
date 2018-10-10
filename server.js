@@ -11,6 +11,7 @@ const bodyParser   = require('body-parser');
 const session      = require('express-session');
 
 const app  = express();
+const jsonParser = bodyParser.json();
 const port = process.env.PORT || 8080;
 
 //Configuration
@@ -23,7 +24,10 @@ require('./config/passport')(passport);
 
 app.use(morgan('common'));
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.set('view engine', 'ejs');
 
 //Passport Setup
