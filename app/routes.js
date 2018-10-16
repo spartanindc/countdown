@@ -47,9 +47,21 @@ module.exports = (app, passport, jsonParser) => {
         });
     });
 
-    //CREATE countdowns
-    app.post('/profile', (req, res) => {
+// COUNTDOWN CRUD SECTION
 
+    //View Countdowns in new PAGE
+
+    app.get('/countdowns', isLoggedIn, (req, res) => {
+        res.render('countdowns.ejs', {
+            user : req.user, // get the user out of session and pass to template
+            countdownList: req.countdowns
+        });
+    });
+
+    //CREATE countdowns
+    app.post('/countdowns', isLoggedIn, (req, res) => {
+        console.log(req.body);
+        res.send(200);
     });
 
     //UPDATE countdowns
@@ -76,7 +88,7 @@ module.exports = (app, passport, jsonParser) => {
 
 
     //DELETE countdowns
-    app.delete('/profile/countdowns/:id', (req, res) => {
+    app.delete('/countdowns/:id', (req, res) => {
 
     });
 
