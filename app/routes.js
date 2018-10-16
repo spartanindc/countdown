@@ -53,7 +53,8 @@ module.exports = (app, passport, jsonParser) => {
     });
 
     //UPDATE countdowns
-    app.put('/profile/countdowns/:id', jsonParser, (req, res) => {
+    /*
+  app.put('/profile/countdowns/:id', jsonParser, (req, res) => {
       const requiredFields = ['date', 'time', 'id'];
       for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -70,11 +71,13 @@ module.exports = (app, passport, jsonParser) => {
         console.log(`Updating Countdown item \`${req.params.id}\``);
         //Figure out what to update here
       }
-    });
+    });  */
+
+
 
     //DELETE countdowns
     app.delete('/profile/countdowns/:id', (req, res) => {
-      
+
     });
 
 // LOGOUT

@@ -4,6 +4,8 @@ const express  = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const flash    = require('connect-flash');
+const moment   = require('moment');
+moment().format();
 
 const morgan       = require('morgan');
 const cookieParser = require('cookie-parser');
