@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
-let enteredDate = moment
+let enteredDate = moment();
 
 const countdownSchema = mongoose.Schema({
   user: req.user,
   title: 'string',
-  date: 'string',
+  targetDate: date,
   notes: 'string'
 })
 

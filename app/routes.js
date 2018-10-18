@@ -53,7 +53,7 @@ module.exports = (app, passport, jsonParser) => {
 
     app.get('/countdowns', isLoggedIn, (req, res) => {
         res.render('countdowns.ejs', {
-            user : req.user, // get the user out of session and pass to template
+            user : req.user, 
             countdownList: req.countdowns
         });
     });
