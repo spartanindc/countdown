@@ -1,12 +1,35 @@
 const mongoose = require('mongoose');
 
-let enteredDate = moment();
+//let enteredDate = moment();
 
 const countdownSchema = mongoose.Schema({
-  user: req.user,
   title: 'string',
-  targetDate: date,
-  notes: 'string'
-})
+  targetDate: 'string',
+  notes: 'string',
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
+});
 
-module.exports = mongoose.model('Countdown', countdownSchema);
+countdownSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    title: this.title,
+    targetDate: this.targetDate,
+    notes: this.notes,
+    user: this.user.email
+  };
+};
+
+countdownSchema.pre('find',function(){
+  this.populate('user');
+});
+
+countdownSchema.pre('findOne',function(){
+  this.populate('user');
+});
+
+const Countdown = mongoose.model('Countdown', countdownSchema);
+
+module.exports = { Countdown }; // {Countdown: Countdown}

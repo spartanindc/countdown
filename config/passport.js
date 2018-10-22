@@ -3,7 +3,6 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // load up the user model and countdown model
 const User = require('../app/models/user');
-const Countdown = require('../app/models/countdown');
 
 
 // expose this function to our app using module.exports

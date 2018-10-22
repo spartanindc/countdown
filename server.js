@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash    = require('connect-flash');
 const moment   = require('moment');
-moment().format();
 
 const morgan       = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -45,3 +44,6 @@ require('./app/routes.js')(app, passport);
 //Server Launch
 app.listen(port);
 console.log('Server is running at ' + port);
+
+//exports
+module.exports = {app, jsonParser};

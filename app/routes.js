@@ -1,4 +1,6 @@
-module.exports = (app, passport, jsonParser) => {
+const { Countdown } = require('./models/countdown');
+
+module.exports = (app, passport) => {
 
 //HOME PAGE (with login links)
 
@@ -43,7 +45,8 @@ module.exports = (app, passport, jsonParser) => {
     // use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, (req, res) => {
         res.render('profile.ejs', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user, // get the user out of session and pass to template
+            countdowns : req.countdowns
         });
     });
 
@@ -52,21 +55,40 @@ module.exports = (app, passport, jsonParser) => {
     //View Countdowns in new PAGE
 
     app.get('/countdowns', isLoggedIn, (req, res) => {
-        res.render('countdowns.ejs', {
-            user : req.user, 
+      Countdown.find({},function(err,data){
+        res.send(data);
+      });
+        /*res.render('countdowns.ejs', {
+            user : req.user,
             countdownList: req.countdowns
-        });
+        });*/
     });
 
     //CREATE countdowns
     app.post('/countdowns', isLoggedIn, (req, res) => {
-        console.log(req.body);
-        res.send(200);
+      console.log(req.body);
+      let newCountdown = req.body;
+      newCountdown.user = ""+req.user._id+"";
+      console.log(newCountdown);
+      //const newCountdown = new Countdown();
+      Countdown.create(newCountdown,function(err,countdown){
+        res.send(countdown);
+      });
+      /*newCountdown.title = req.body.title;
+      newCountdown.targetDate = req.body.targetDate;
+      newCountdown.notes = req.body.notes;*/
+
+      /*newCountdown.save(function(err) {
+          if (err)
+              throw err;
+          return done(null, newCountdown);
+      });*/
     });
 
     //UPDATE countdowns
-    /*
-  app.put('/profile/countdowns/:id', jsonParser, (req, res) => {
+
+  app.put('/countdowns/:id', (req, res) => {
+      //Ensure valid request to update
       const requiredFields = ['date', 'time', 'id'];
       for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -80,16 +102,33 @@ module.exports = (app, passport, jsonParser) => {
           console.error(message);
           return res.status(400).send(message);
         }
-        console.log(`Updating Countdown item \`${req.params.id}\``);
-        //Figure out what to update here
       }
-    });  */
+      //Update
+      const updated = {};
+      const updateableFields = ['title', 'targetDate', 'notes'];
 
+        updateableFields.forEach(field => {
+          if (field in req.body) {
+            updated[field] = req.body[field];
+          }
+        });
 
+         Countdown
+           .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+           .then(updatedPost => res.status(204).end())
+           .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+
+      console.log(`Updating Countdown item \`${req.params.id}\``);
+    });
 
     //DELETE countdowns
     app.delete('/countdowns/:id', (req, res) => {
-
+      Countdown
+        .findbyIdandRemove(req.params.id)
+        .then(() => {
+          console.log(`deleted countdown with id \`${req.params.id}\``);
+          res.status(204).end();
+        });
     });
 
 // LOGOUT
