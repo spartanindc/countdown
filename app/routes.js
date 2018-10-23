@@ -44,10 +44,13 @@ module.exports = (app, passport) => {
     // protected so you have to be logged in to visit
     // use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, (req, res) => {
+        Countdown.find({},function(err,data){
+        res.send(data);
         res.render('profile.ejs', {
             user : req.user, // get the user out of session and pass to template
-            countdowns : req.countdowns
+            countdowns : data
         });
+      });
     });
 
 // COUNTDOWN CRUD SECTION
@@ -136,6 +139,7 @@ module.exports = (app, passport) => {
         req.logout();
         res.redirect('/');
     });
+
 };
 
 // route middleware to make sure a user is logged in
@@ -146,5 +150,5 @@ function isLoggedIn(req, res, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }

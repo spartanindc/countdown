@@ -46,4 +46,4 @@ app.listen(port);
 console.log('Server is running at ' + port);
 
 //exports
-module.exports = {app, jsonParser};
+module.exports = {app};
