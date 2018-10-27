@@ -30,6 +30,6 @@ countdownSchema.pre('findOne',function(){
   this.populate('user');
 });
 
-const Countdown = mongoose.model('Countdown', countdownSchema);
+const Countdowns = mongoose.model('Countdowns', countdownSchema);
 
-module.exports = { Countdown }; // {Countdown: Countdown}
+module.exports = { Countdowns }; // {Countdown: Countdown}

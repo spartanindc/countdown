@@ -1,4 +1,10 @@
-const { Countdown } = require('./models/countdown');
+const { Countdowns } = require('./models/countdown');
+
+//Various countdown package requirements
+const moment = require('moment');
+const countdown = require('countdown');
+require('moment-countdown');
+moment().format();
 
 module.exports = (app, passport) => {
 
@@ -44,11 +50,13 @@ module.exports = (app, passport) => {
     // protected so you have to be logged in to visit
     // use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, (req, res) => {
-        Countdown.find({},function(err,data){
-        res.send(data);
+        Countdowns.find({user: req.user._id},function(err,data){
+
         res.render('profile.ejs', {
             user : req.user, // get the user out of session and pass to template
-            countdowns : data
+            countdowns : data,
+            moment: moment,
+            countdown: countdown,
         });
       });
     });
@@ -58,7 +66,7 @@ module.exports = (app, passport) => {
     //View Countdowns in new PAGE
 
     app.get('/countdowns', isLoggedIn, (req, res) => {
-      Countdown.find({},function(err,data){
+      Countdowns.find({},function(err,data){
         res.send(data);
       });
         /*res.render('countdowns.ejs', {
@@ -74,18 +82,10 @@ module.exports = (app, passport) => {
       newCountdown.user = ""+req.user._id+"";
       console.log(newCountdown);
       //const newCountdown = new Countdown();
-      Countdown.create(newCountdown,function(err,countdown){
+      Countdowns.create(newCountdown,function(err,countdown){
         res.send(countdown);
       });
-      /*newCountdown.title = req.body.title;
-      newCountdown.targetDate = req.body.targetDate;
-      newCountdown.notes = req.body.notes;*/
 
-      /*newCountdown.save(function(err) {
-          if (err)
-              throw err;
-          return done(null, newCountdown);
-      });*/
     });
 
     //UPDATE countdowns
@@ -116,7 +116,7 @@ module.exports = (app, passport) => {
           }
         });
 
-         Countdown
+         Countdowns
            .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
            .then(updatedPost => res.status(204).end())
            .catch(err => res.status(500).json({ message: 'Something went wrong' }));
@@ -126,7 +126,7 @@ module.exports = (app, passport) => {
 
     //DELETE countdowns
     app.delete('/countdowns/:id', (req, res) => {
-      Countdown
+      Countdowns
         .findbyIdandRemove(req.params.id)
         .then(() => {
           console.log(`deleted countdown with id \`${req.params.id}\``);

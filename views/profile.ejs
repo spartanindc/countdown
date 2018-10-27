@@ -21,28 +21,29 @@
 
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
 
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
-
-            </div>
             <div class="well">
                 <h3><span class="fa fa-user"></span>Countdowns</h3>
 
                     <div class="countdowns">
-                      <p>List of Countdowns</p>
+                      <p>List of Countdowns - Total: <%=countdowns.length%></p>
                       <!--Append list of countdowns here-->
-                      <div>
-                        <p>Title: <%= countdowns.title %></p>
-                        <p>Target Date: <%= countdowns.targetDate %></p>
-                        <p>Notes: <%= countdowns.notes %></p>
-                      </div>
+                      <% for(var i=0; i<countdowns.length; i++) { %>
 
+                      <div>
+                        <p>Title: <%= countdowns[i].title %></p>
+                        <p>Target Date: <%= countdowns[i].targetDate %></p>
+                        <p>Notes: <%= countdowns[i].notes %></p>
+                        <p>Time Left: <%= moment(countdowns[i].targetDate).countdown().toString(); %></p>
+                        <!-- <div class="clock"></div>
+                        <script type="text/javascript">
+                            var clock = $('.clock').FlipClock(end,{
+                            clockFace: 'DailyCounter',
+                            countdown: true
+                            });
+                        </script> -->
+                      </div>
+                      <% } %>
                     </div>
 
             </div>
@@ -72,5 +73,7 @@
     </div>
 
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 </body>
 </html>
