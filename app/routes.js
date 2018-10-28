@@ -92,7 +92,7 @@ module.exports = (app, passport) => {
 
   app.put('/countdowns/:id', (req, res) => {
       //Ensure valid request to update
-      const requiredFields = ['date', 'time', 'id'];
+      const requiredFields = ['title', 'targetDate', 'id', 'notes'];
       for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
@@ -100,7 +100,7 @@ module.exports = (app, passport) => {
           console.error(message);
           return res.status(400).send(message);
         }
-        if (req.params.id !== req.body.id) {
+        if (req.params._id !== req.body._id) {
           const message = `Request path id (${req.params.id}) and request body id (${req.body.id}) must match`;
           console.error(message);
           return res.status(400).send(message);

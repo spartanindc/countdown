@@ -1,87 +1,92 @@
 <!-- views/profile.ejs -->
 <!doctype html>
 <html lang="en">
-<head>
-    <title>Countdown</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css">
-    <style>
-        body        { padding-top:80px; word-wrap:break-word; }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
-</head>
-<body>
-<div class="container">
+  <head>
+      <title>Countdown</title>
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css">
+      <style>
+          body        { padding-top:80px; word-wrap:break-word; }
+      </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
-
-    <div class="row">
-
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-12">
-
-            <div class="well">
-                <h3><span class="fa fa-user"></span>Countdowns</h3>
-
-                    <div class="countdowns">
-                      <p>List of Countdowns - Total: <%=countdowns.length%></p>
-                      <!--Append list of countdowns here-->
-                      <% for(var i=0; i<countdowns.length; i++) { %>
-
-                      <div>
-                        <p>Title: <%= countdowns[i].title %></p>
-                        <p>Target Date: <%= countdowns[i].targetDate %></p>
-                        <p>Notes: <%= countdowns[i].notes %></p>
-                        <!--<p>Time Left: <%= new Date(countdowns[i].targetDate+"T00:00:00") %></p>-->
-                        <% if((new Date(countdowns[i].targetDate+"T00:00:00").getTime() / 1000) - (new Date().getTime()/1000) > 0){ %>
-                        <div class="clock-<%=countdowns[i]._id%>" data-time-left="<%=countdowns[i].targetDate%>"></div>
-                        <script type="text/javascript">
-                            var clock = $('.clock-<%=countdowns[i]._id%>').FlipClock(<%= (new Date(countdowns[i].targetDate+"T00:00:00").getTime() / 1000) - (new Date().getTime()/1000) %>,{
-                              clockFace: 'DailyCounter',
-                              countdown: true,
-                              autoPlay: true
-                            });
-                        </script>
-                        <% } else { %>
-                            <p>Past</p>
-                        <% } %>
-                      </div>
-                      <% } %>
-                    </div>
-
-            </div>
-            <div class="well">
-                <h3><span class="fa fa-user"></span>Create Countdown</h3>
-
-                <form action="/countdowns" method="post">
-                    <div class="form-group">
-                        <label>Title for Countdown</label>
-                        <input type="text" class="form-control" name="title">
-                    </div>
-                    <div class="form-group">
-                        <label>Target Date</label>
-                        <input type="date" class="form-control" name="targetDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Notes</label>
-                        <input type="text" class="form-control" name="notes">
-                    </div>
-
-                    <button type="submit" class="btn btn-warning btn-lg">Create</button>
-                </form>
-
-            </div>
+        <div class="page-header text-center">
+            <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
         </div>
 
+        <div class="row">
+
+            <div class="col-sm-12">
+
+                <div class="well">
+                    <h3><span class="fa fa-user"></span>Countdowns</h3>
+
+                    <div class="countdowns">
+                        <p>List of Countdowns - Total: <%=countdowns.length%></p>
+
+                        <div class="create-countdown"></div>
+
+                        <button type ="button" class="create">Create Countdown</button>
+                        <!--Append list of countdowns here-->
+                        <% for(var i=0; i<countdowns.length; i++) { %>
+
+                        <div class="countdown-data">
+
+                          <p>Title: <%= countdowns[i].title %></p>
+                          <p>Target Date: <%= countdowns[i].targetDate %></p>
+                          <p>Notes: <%= countdowns[i].notes %></p>
+                          <span><button type ="button" class="update">Edit</button></span><span><button type ="button" class="create">Delete</button></span>
+                          <div class="edit-countdown"></div>
+                        <% if((new Date(countdowns[i].targetDate+"T00:00:00").getTime() / 1000) - (new Date().getTime()/1000) > 0) { %>
+
+                          <div class="clock-<%=countdowns[i]._id%>" data-time-left="<%=countdowns[i].targetDate%>"></div>
+                            <script type="text/javascript">
+                                var clock = $('.clock-<%=countdowns[i]._id%>')
+                                .FlipClock(<%= (new Date(countdowns[i].targetDate+"T00:00:00")
+                                .getTime() / 1000) - (new Date().getTime()/1000) %>,{
+                                  clockFace: 'DailyCounter',
+                                  countdown: true,
+                                  autoPlay: true
+                                });
+                            </script>
+                            <% } else { %>
+                              <p>Countdown has finished!</p>
+                              <% } %>
+                        </div>
+                          <% } %>
+                    </div>
+
+                </div>
+
+                <div class="well">
+                    <h3><span class="fa fa-user"></span>Create Countdown</h3>
+
+                    <form action="/countdowns" method="post">
+                        <div class="form-group">
+                            <label>Title for Countdown</label>
+                            <input type="text" class="form-control" name="title">
+                        </div>
+                        <div class="form-group">
+                            <label>Target Date</label>
+                            <input type="date" class="form-control" name="targetDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <input type="text" class="form-control" name="notes">
+                        </div>
+
+                        <button type="submit" class="btn btn-warning btn-lg">Create</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-</div>
-
-
-</body>
+  <script type="text/javascript" src="./views/clientside-profile.js"></script>
+  </body>
 </html>
