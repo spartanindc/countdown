@@ -36,15 +36,15 @@
 
                               <form action="/countdowns" method="post">
                                   <div class="form-group">
-                                      <label>Title for Countdown</label>
+                                      <label for="title">Title for Countdown</label>
                                       <input type="text" class="form-control" name="title">
                                   </div>
                                   <div class="form-group">
-                                      <label>Target Date</label>
+                                      <label for="target date">Target Date</label>
                                       <input type="date" class="form-control" name="targetDate">
                                   </div>
                                   <div class="form-group">
-                                      <label>Notes</label>
+                                      <label for="notes">Notes</label>
                                       <input type="text" class="form-control" name="notes">
                                   </div>
 
@@ -67,27 +67,28 @@
                             <div class="well">
                                 <h3><span class="fa fa-user"></span>Update Countdown</h3>
 
-                                <form action="/countdowns/:id" method="post"> <!--<%= countdowns[i]._id %> -->
+                                <form action="/countdowns/<%= countdowns[i]._id %>" method="post"> <!--<%= countdowns[i]._id %> -->
                                     <div class="form-group">
-                                        <label>Title for Countdown</label>
+                                        <label for="title">Title for Countdown</label>
                                         <input type="text" class="form-control" name="title" value="<%= countdowns[i].title %>">
                                     </div>
                                     <div class="form-group">
-                                        <label>Target Date</label>
+                                        <label for="target date">Target Date</label>
                                         <input type="date" class="form-control" name="targetDate" value="<%= countdowns[i].targetDate %>">
                                     </div>
                                     <div class="form-group">
-                                        <label>Notes</label>
+                                        <label for="notes">Notes</label>
                                         <input type="text" class="form-control" name="notes" value="<%= countdowns[i].notes %>">
                                     </div>
+                                    <input type="hidden" name="id" class="countdown-id" value="<%= countdowns[i]._id %>"/>
 
                                     <button type="submit" class="btn btn-warning btn-lg">Update</button>
                                 </form>
                             </div>
                           </div>
-                          <span><button type ="button" class="update">Edit</button></span>
+                          <button type ="button" class="update">Edit</button>
 
-                          <span><button type ="button" class="delete">Delete</button></span>
+                          <button type ="button" class="delete">Delete</button>
 
                         <% if((new Date(countdowns[i].targetDate+"T00:00:00").getTime() / 1000) - (new Date().getTime()/1000) > 0) { %>
 
@@ -114,20 +115,7 @@
             </div>
         </div>
     </div>
-  <!-- <script type="text/javascript" src="./public/clientside-profile.js"></script> -->
-  <script type="text/javascript">
+  <script type="text/javascript" src="/clientside-profile.js"></script>
 
-//Create Form Display Toggle
-    $('.create').click( event => {
-          $('.create-countdown').slideToggle('slow');
-      });
-
-//Update Form Display Toggle
-    $('.update').click( event => {
-        $(this).next('.edit-countdown').slideToggle('slow');
-        console.log('Update button clicked')
-      });
-
-  </script>
   </body>
 </html>

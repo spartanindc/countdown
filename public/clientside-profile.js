@@ -11,52 +11,53 @@
 
 // Create
 function createButton() {
-  $('.create').on('click', event => {
-        event.preventDefault();
-        $('#create-countdown').toggle();
+
+  //Create Form Display Toggle
+    $('.create').click(function(event) {
+      $('.create-countdown').slideToggle('slow');
     });
 }
 
-// Update
-  //Call API and update
-function updateAPICall() {
-  let update_url = "./countdowns/:id"
+function toggleUpdateButton() {
 
-
-
-  $.ajax(
-    type: 'PUT',
-    url: update_url,
-    dataType: 'json',
-    data: {
-      title: ,
-      targetDate: ,
-      comments: ,
-    }
-    success: ,
-    error: console.log('Update failed')
-
-  )
-
-}
-  //Event handler for update submit buttton
-function showUpdateFormButton() {
-    $('.create').on('click', event => {
-        event.preventDefault();
-        $('.edit-countdown').toggle();
-    });
+  //Update Form Display Toggle
+  $('.update').click(function(event){
+    $(this).parent().children('.edit-countdown').slideToggle('slow');
+    console.log('Update button clicked');
+  });
 }
 
 // Delete
 
-//Run Button Scripts
+  //Delete Button Event Handler
+function deleteButton() {
+  $('.delete').click(function(event) {
+    deleteCountdown();
+  });
+}
+
+  //Delete AJAX call
+function deleteCountdown() {
+
+  $.ajax({
+      url: '/countdowns/:id',
+      method: 'DELETE',
+      contentType: 'application/json',
+      success: function(res) {
+          console.log('Item Deleted Successfully');
+          $(this).parent().remove();
+      },
+      error: function(req) {
+          console.log('Delete Failed');
+      }
+  });
+}
+
+//Run Button Handlers
 function runButtons() {
   createButton();
-  showUpdateFormButton();
+  toggleUpdateButton();
   deleteButton();
 }
-// Endpoint
-function endPointCalls() {
 
-}
 runButtons();

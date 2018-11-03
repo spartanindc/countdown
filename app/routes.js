@@ -90,7 +90,7 @@ module.exports = (app, passport) => {
 
     //UPDATE countdowns
 
-  app.put('/countdowns/:id', (req, res) => {
+  app.post('/countdowns/:id', (req, res) => {
       //Ensure valid request to update
       const requiredFields = ['title', 'targetDate', 'id', 'notes'];
       for (let i=0; i<requiredFields.length; i++) {
