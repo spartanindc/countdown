@@ -88,7 +88,7 @@
                           </div>
                           <button type ="button" class="update">Edit</button>
 
-                          <button type ="button" class="delete">Delete</button>
+                          <button type ="button" class="delete" value="<%= countdowns[i]._id %>">Delete</button>
 
                         <% if((new Date(countdowns[i].targetDate+"T00:00:00").getTime() / 1000) - (new Date().getTime()/1000) > 0) { %>
 
@@ -103,7 +103,7 @@
                                 });
                             </script>
                             <% } else { %>
-                              <p>Countdown has finished!</p>
+                              <h2>Countdown has finished!</h2>
                               <% } %>
                         </div>
 

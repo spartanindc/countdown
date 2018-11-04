@@ -32,20 +32,23 @@ function toggleUpdateButton() {
   //Delete Button Event Handler
 function deleteButton() {
   $('.delete').click(function(event) {
-    deleteCountdown();
+    deleteCountdown(event);
   });
 }
 
   //Delete AJAX call
-function deleteCountdown() {
+function deleteCountdown(event) {
+
+  let countdownID = $(event.target).val();
+
+  let prefix = '/countdowns/';
 
   $.ajax({
-      url: '/countdowns/:id',
+      url: prefix + countdownID,
       method: 'DELETE',
       contentType: 'application/json',
       success: function(res) {
-          console.log('Item Deleted Successfully');
-          $(this).parent().remove();
+          $(event.target).parent().remove();
       },
       error: function(req) {
           console.log('Delete Failed');

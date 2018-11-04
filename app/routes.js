@@ -118,7 +118,7 @@ module.exports = (app, passport) => {
 
          Countdowns
            .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
-           .then(updatedPost => res.status(204).end())
+           .then(updatedCountdown => res.redirect('/profile'))
            .catch(err => res.status(500).json({ message: 'Something went wrong' }));
 
       console.log(`Updating Countdown item \`${req.params.id}\``);
@@ -127,7 +127,7 @@ module.exports = (app, passport) => {
     //DELETE countdowns
     app.delete('/countdowns/:id', (req, res) => {
       Countdowns
-        .findbyIdandRemove(req.params.id)
+        .findOneAndRemove({'_id' : req.params.id})
         .then(() => {
           console.log(`deleted countdown with id \`${req.params.id}\``);
           res.status(204).end();
