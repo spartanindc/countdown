@@ -83,7 +83,7 @@ module.exports = (app, passport) => {
       console.log(newCountdown);
       //const newCountdown = new Countdown();
       Countdowns.create(newCountdown,function(err,countdown){
-        res.send(countdown);
+        res.redirect('/profile');
       });
 
     });
