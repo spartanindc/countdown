@@ -1,9 +1,7 @@
 const { Countdowns } = require('./models/countdown');
 
-//Various countdown package requirements
+//Moment package requirements
 const moment = require('moment');
-const countdown = require('countdown');
-require('moment-countdown');
 moment().format();
 
 module.exports = (app, passport) => {
@@ -50,13 +48,12 @@ module.exports = (app, passport) => {
     // protected so you have to be logged in to visit
     // use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, (req, res) => {
-        Countdowns.find({user: req.user._id},function(err,data){
+        Countdowns.find({user: req.user._id},{},{sort:{targetDate:1}},function(err,data){
 
         res.render('profile.ejs', {
             user : req.user, // get the user out of session and pass to template
             countdowns : data,
             moment: moment,
-            countdown: countdown,
         });
       });
     });

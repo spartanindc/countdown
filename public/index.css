@@ -1,15 +1,53 @@
 body {
-  background-color: #c8e6c9
+  background-color: #c8e6c9;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+input {
+  text-align: center;
 }
 
 .title {
-  padding-bottom: 50px;
+  padding-bottom: 35px;
+}
+
+.heading {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.heading-update {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.targetedDate {
+  font-size: 18px;
+}
+
+.notesBox {
+  font-size: 16px
 }
 
 .container {
-  padding-top: 80px;
+  padding-top: 40px;
   /* width: 60%;
   height: auto; */
+}
+
+.countdown-data {
+  position: relative;
+}
+
+div.flip-clock-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  width: auto;
+}
+
+.flip-clock-wrapper ul.flip {
+  width: 8%;
 }
 
 label {
@@ -20,5 +58,36 @@ label {
 
 footer {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 25px;
+}
+
+.update, .delete {
+  position: absolute;
+}
+
+.update {
+  right: 75px;
+  top: 10px;
+}
+
+.delete {
+  right: 10px;
+  top: 10px;
+}
+
+.finished {
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+@media only screen and (max-width: 640px) {
+  .flip-clock-wrapper ul.flip {
+    transform: scale(.75);
+  }
+
+  div.flip-clock-wrapper {
+    padding: 0;
+    margin: 0;
+  }
 }

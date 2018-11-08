@@ -11,44 +11,49 @@
       <!--Styles-->
       <link href="/index.css" rel="stylesheet" type="text/css">
 
+      <!--Fonts-->
+      <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Bold" rel="stylesheet">
+
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
-    <div class="container">
+    <main>
+      <div class="container">
 
-      <div class="row">
-        <div class="col s12">
-          <h1>Login</h1>
+        <div class="row">
+          <div class="col s12">
+            <h1>Login</h1>
 
-          <!-- show any messages that come back with authentication -->
-          <% if (message.length > 0) { %>
-              <div class="alert alert-danger"><%= message %></div>
-          <% } %>
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>
 
-          <!-- LOGIN FORM -->
-          <form action="/login" method="post">
-              <div class="form-group">
-                  <label>Email</label>
-                  <input type="email" class="form-control" name="email" value="homer@simpson.com" required>
-              </div>
-              <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" class="form-control" name="password" value="123fakestreet" required>
-              </div>
+            <!-- LOGIN FORM -->
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" value="homer@simpson.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" value="123fakestreet" required>
+                </div>
 
-              <button type="submit" class="btn"><i class="material-icons left">lock_open</i>Login</button>
-          </form>
+                <button type="submit" class="btn green darken-2"><i class="material-icons left">lock_open</i>Login</button>
+            </form>
 
-          <br>
+            <br>
 
-          <p>Need an account? <a href="/signup">Signup</a></p>
-          <p>Or return <a href="/">home</a>.</p>
+            <p>Need an account? <a href="/signup">Signup</a></p>
+            <p>Or return <a href="/">home</a>.</p>
+          </div>
+
         </div>
 
       </div>
-
-    </div>
+    </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

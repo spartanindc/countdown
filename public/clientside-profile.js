@@ -13,30 +13,32 @@
 function createButton() {
 
   //Create Form Display Toggle
-    $('.create').click(function(event) {
-      $('.create-countdown').slideToggle('slow');
-    });
+  $('.create').click(function(event) {
+    $('.create-countdown').slideToggle('slow');
+    $(this).hide();
+  });
 }
 
 function toggleUpdateButton() {
 
   //Update Form Display Toggle
-  $('.update').click(function(event){
+  $('.update').click(function(event) {
     $(this).parent().children('.edit-countdown').slideToggle('slow');
+    $(this).hide();
     console.log('Update button clicked');
   });
 }
 
 // Delete
 
-  //Delete Button Event Handler
+//Delete Button Event Handler
 function deleteButton() {
   $('.delete').click(function(event) {
     deleteCountdown(event);
   });
 }
 
-  //Delete AJAX call
+//Delete AJAX call
 function deleteCountdown(event) {
 
   let countdownID = $(event.target).val();
@@ -44,15 +46,15 @@ function deleteCountdown(event) {
   let prefix = '/countdowns/';
 
   $.ajax({
-      url: prefix + countdownID,
-      method: 'DELETE',
-      contentType: 'application/json',
-      success: function(res) {
-          $(event.target).parent().remove();
-      },
-      error: function(req) {
-          console.log('Delete Failed');
-      }
+    url: prefix + countdownID,
+    method: 'DELETE',
+    contentType: 'application/json',
+    success: function(res) {
+      $(event.target).parent().remove();
+    },
+    error: function(req) {
+      console.log('Delete Failed');
+    }
   });
 }
 
