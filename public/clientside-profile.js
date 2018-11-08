@@ -8,6 +8,21 @@
 // form fields
 // another field would be <input type="hidden" name="countdownID" class="countdown-id" value=""/>
 
+$(document).ready(function(){
+  if($('#countdowns-length').length){
+    var countdownLength = $('#countdowns-length').val();
+    for(var i=0; i<countdownLength; i++){
+      var clock = $('#clock-'+i)
+        .FlipClock((new Date($('#clock-'+i).attr('data-time-left')+"T00:00:00")
+                        .getTime() / 1000) - (new Date().getTime()/1000), {
+          clockFace: 'DailyCounter',
+          countdown: true,
+          autoPlay: true
+        });
+      }
+  }
+})
+
 
 // Create
 function createButton() {

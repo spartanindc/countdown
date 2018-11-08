@@ -70,7 +70,7 @@
             </div>
 
             <button type="button" class="create btn green darken-2"><i class="material-icons right">access_time</i>Create</button>
-
+            <input type="hidden" id="countdowns-length" value="<%=countdowns.length%>"/>
             <% for(var i=0; i<countdowns.length; i++) { %>
 
             <div class="countdown-data card green lighten-2">
@@ -119,15 +119,9 @@
 
               <% if((new Date(countdowns[i].targetDate+"T00:00:00").getTime() / 1000) - (new Date().getTime()/1000) > 0) { %>
 
-              <div class="clock-<%=countdowns[i]._id%>" data-time-left="<%=countdowns[i].targetDate%>"></div>
+              <div class="clock-<%=countdowns[i]._id%>" data-time-left="<%=countdowns[i].targetDate%>" id="clock-<%=i%>"></div>
               <script type="text/javascript">
-                var clock = $('.clock-<%=countdowns[i]._id%>')
-                  .FlipClock(<%= (new Date(countdowns[i].targetDate+"T00:00:00")
-                                  .getTime() / 1000) - (new Date().getTime()/1000) %>, {
-                    clockFace: 'DailyCounter',
-                    countdown: true,
-                    autoPlay: true
-                  });
+                
               </script>
               <% } else { %>
               <p class="finished">Countdown has finished!</p>
