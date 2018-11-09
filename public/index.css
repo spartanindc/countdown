@@ -90,4 +90,12 @@ footer {
     padding: 0;
     margin: 0;
   }
+
+  .update, .delete {
+    position: relative;
+    display: inline-flex;
+    margin: 40px auto;
+    right: auto;
+    top: auto;
+  }
 }
