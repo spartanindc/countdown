@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-//let enteredDate = moment();
-
 const countdownSchema = mongoose.Schema({
   title: 'string',
   targetDate: 'string',
@@ -32,4 +30,4 @@ countdownSchema.pre('findOne',function(){
 
 const Countdowns = mongoose.model('Countdowns', countdownSchema);
 
-module.exports = { Countdowns }; // {Countdown: Countdown}
+module.exports = { Countdowns };

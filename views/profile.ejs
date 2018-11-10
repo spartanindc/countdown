@@ -2,136 +2,134 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <title>Countdown</title>
+  <head>
+    <title>Countdown</title>
 
-  <!-- Icons! -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Icons! -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!--Import materialize.css-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-  <!--Styles-->
-  <link href="/index.css" rel="stylesheet" type="text/css">
+    <!--Styles-->
+    <link href="/index.css" rel="stylesheet" type="text/css">
 
-  <!--Fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
 
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!--FlipClock Stylesheet-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css">
+    <meta charset="utf-8">
 
-  <!-- Jquery link is up here for a good reason, believe me -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--FlipClock Stylesheet-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css">
 
-  <!-- Flipclock JS also up here for a good reason -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
-</head>
+    <!-- Jquery link is up here for a good reason, believe me -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<body>
-  <main role="main">
-    <div class="container">
+    <!-- Flipclock JS also up here for a good reason -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
+  </head>
 
-      <div class="row">
+  <body>
+    <main role="main">
+      <div class="container">
 
-        <div class="center-align">
+        <div class="row">
 
-          <h1>Countdowns</h1>
-          <p class='heading'>Dashboard for
-            <%= user.local.email %>
-          </p>
-          <div class="countdowns">
+          <div class="center-align">
 
-            <a href="/logout" class="btn green darken-2 logout"><i class="material-icons right">exit_to_app</i>Logout</a>
+            <h1>Countdowns</h1>
+            <p class='heading'>Dashboard for
+              <%= user.local.email %>
+            </p>
+            <div class="countdowns">
 
-            <div class="create-countdown" hidden>
-              <div class="well">
-                <h3>Create Countdown</h3>
+              <a href="/logout" class="btn green darken-2 logout"><i class="material-icons right">exit_to_app</i>Logout</a>
 
-                <form action="/countdowns" method="post">
-                  <div class="">
-                    <label for="title" class="active">Title for Countdown</label>
-                    <input type="text" class="" name="title" autofocus required>
-                  </div>
-                  <div class="">
-                    <label for="target date" class="active">Target Date</label>
-                    <input type="date" class="" name="targetDate" required>
-                  </div>
-                  <div class="">
-                    <label for="notes" class="active">Notes</label>
-                    <input type="text" class="" name="notes">
-                  </div>
+              <div class="create-countdown" hidden>
+                <div class="well">
+                  <h3>Create Countdown</h3>
+                  <fieldset>
+                    <legend>
+                      Create Countdown
+                    </legend>
+                    <form action="/countdowns" method="post">
 
-                  <button type="submit" class="btn green darken-2">Create</button>
-                </form>
+                      <label for="title">Title for Countdown</label>
+                      <input type="text" aria-label="title" name="title" autofocus required>
+
+                      <label for="target date">Target Date</label>
+                      <input type="date" aria-label="Target Date" name="targetDate" required>
+
+                      <label for="notes">Notes</label>
+                      <input type="text" aria-label="notes" name="notes">
+
+                      <button type="submit" aria-label="create countdown" class="btn green darken-2">Create</button>
+                    </form>
+                  </fieldset>
+                </div>
               </div>
-            </div>
 
-            <button type="button" class="create btn green darken-2"><i class="material-icons right">access_time</i>Create</button>
-            <input type="hidden" id="countdowns-length" value="<%=countdowns.length%>"/>
-            <% for(var i=0; i<countdowns.length; i++) { %>
+              <button type="button" aria-label="display create countdown form" class="create btn green darken-2"><i class="material-icons right">access_time</i>Create</button>
+              <input type="hidden" id="countdowns-length" value="<%=countdowns.length%>"/>
+              <% for(var i=0; i<countdowns.length; i++) { %>
 
-            <div class="countdown-data card green lighten-2">
+              <div class="countdown-data card green lighten-2">
 
-              <p class="heading">
-                <%= countdowns[i].title %>
-              </p>
-              <p class="targetedDate">Counting down to
-                <%= moment(countdowns[i].targetDate).format("dddd, MMMM Do, YYYY").toString()%>
-              </p>
-
-              <div class="notesBox">
-                <p>Notes:
-                  <%= countdowns[i].notes %>
+                <p class="heading">
+                  <%= countdowns[i].title %>
                 </p>
+                <p class="targetedDate">Counting down to
+                  <%= moment(countdowns[i].targetDate).format("dddd, MMMM Do, YYYY").toString()%>
+                </p>
+
+                <div class="notesBox">
+                  <p>Notes:
+                    <%= countdowns[i].notes %>
+                  </p>
+                </div>
+
+                <div class="edit-countdown" hidden>
+
+                  <p class="heading-update">Update Countdown</p>
+                  <fieldset>
+                    <legend>
+                      Update Countdown
+                    </legend>
+                    <form action="/countdowns/<%= countdowns[i]._id %>" method="post">
+
+                      <label for="title">Title for Countdown</label>
+                      <input type="text" aria-label="title" name="title" value="<%= countdowns[i].title %>" required>
+
+                      <label for="targetDate">Target Date</label>
+                      <input type="date" aria-label="Target date" name="targetDate" value="<%= countdowns[i].targetDate %>" required>
+
+                      <label for="notes">Notes</label>
+                      <input type="text" aria-label="notes" name="notes" value="<%= countdowns[i].notes %>">
+
+                      <input type="hidden" name="id" class="countdown-id" value="<%= countdowns[i]._id %>" />
+
+                      <button type="submit" aria-label="submit update" class="btn-small light-blue accent-3">Update</button>
+                    </form>
+                  </fieldset>
+
+                </div>
+                <button type="button" aria-label="Update" class="update btn-small blue lighten-1"><i class="material-icons">update</i></button>
+
+                <button type="button" aria-label="Delete" class="delete btn-small red darken-1" value="<%= countdowns[i]._id %>"><i class="material-icons">delete</i></button>
+
+                <div class="clock-<%=countdowns[i]._id%>" data-time-left="<%=countdowns[i].targetDate%>" id="clock-<%=i%>"></div>
+
               </div>
-
-              <div class="edit-countdown" hidden>
-
-                <p class="heading-update">Update Countdown</p>
-
-                <form action="/countdowns/<%= countdowns[i]._id %>" method="post">
-
-                  <div class="">
-                    <label for="title">Title for Countdown</label>
-                    <input type="text" name="title" value="<%= countdowns[i].title %>" required>
-                  </div>
-                  <div class="">
-                    <label for="target date">Target Date</label>
-                    <input type="date" name="targetDate" value="<%= countdowns[i].targetDate %>" required>
-                  </div>
-                  <div class="">
-                    <label for="notes">Notes</label>
-                    <input type="text" name="notes" value="<%= countdowns[i].notes %>">
-                  </div>
-                  <input type="hidden" name="id" class="countdown-id" value="<%= countdowns[i]._id %>" />
-
-                  <button type="submit" class="btn-small light-blue accent-3">Update</button>
-                </form>
-
-              </div>
-              <button type="button" class="update btn-small blue lighten-1"><i class="material-icons">update</i></button>
-
-              <button type="button" class="delete btn-small red darken-1" value="<%= countdowns[i]._id %>"><i class="material-icons">delete</i></button>
-
-              <%  %>
-
-              <div class="clock-<%=countdowns[i]._id%>" data-time-left="<%=countdowns[i].targetDate%>" id="clock-<%=i%>"></div>
-              <script type="text/javascript">
-
-              </script>
-
+              <% } %>
             </div>
-            <% } %>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-  <script type="text/javascript" src="/clientside-profile.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-
+    </main>
+    <script type="text/javascript" src="/clientside-profile.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
 </html>

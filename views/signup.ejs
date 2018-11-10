@@ -18,36 +18,43 @@
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta charset="utf-8">
+
   </head>
   <body>
-    <div class="container">
+    <main role="main">
+      <div class="container">
 
-          <h1>Signup</h1>
+            <h1>Signup</h1>
 
-          <!-- show any messages that come back with authentication -->
-          <% if (message.length > 0) { %>
-              <div class="alert alert-danger"><%= message %></div>
-          <% } %>
+            <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+            <% } %>
 
-          <!-- LOGIN FORM -->
-          <form action="/signup" method="post">
-              <div class="form-group">
-                  <label>Email</label>
-                  <input type="text" class="signup-form" name="email">
-              </div>
-              <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" class="signup-form" name="password">
-              </div>
+            <!-- LOGIN FORM -->
+            <fieldset>
+              <legend>
+                Sign up
+              </legend>
+              <form action="/signup" method="post">
 
-              <button type="submit" class="btn green darken-2"><i class="material-icons left">create</i>Signup</button>
-          </form>
+                <label for="signup-form">Email</label>
+                <input aria-label="E-mail" type="text" class="signup-form" name="email">
 
-          <br>
+                <label>Password</label>
+                <input aria-label="password" type="password" class="signup-form" name="password">
 
-          <p>Already have an account? <a href="/login">Login</a></p>
+                <button aria-label="submit signup form" type="submit" class="btn green darken-2"><i class="material-icons left">create</i>Signup</button>
+              </form>
+            </fieldset>
 
-    </div>
+            <br>
+
+            <p>Already have an account? <a href="/login">Login</a></p>
+
+      </div>
+    </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

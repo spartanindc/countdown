@@ -9,7 +9,7 @@ module.exports = (app, passport) => {
 //HOME PAGE (with login links)
 
     app.get('/', (req, res) => {
-        res.render('index.ejs'); // load the index.ejs file
+        res.render('index.ejs');
     });
 
 // LOGIN
@@ -48,49 +48,30 @@ module.exports = (app, passport) => {
     // protected so you have to be logged in to visit
     // use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, (req, res) => {
-        Countdowns.find({user: req.user._id},{},{sort:{targetDate:1}},function(err,data){
+        Countdowns.find({user: req.user._id},{},{sort:{targetDate:1}},function(err,data){  // pre-sorting countdowns from least time left to most
 
         res.render('profile.ejs', {
             user : req.user, // get the user out of session and pass to template
-            countdowns : data,
-            moment: moment,
+            countdowns : data, // pull data form the database
+            moment: moment, // allow for moment.js to be used on the front end
         });
       });
     });
 
 // COUNTDOWN CRUD SECTION
 
-    //View Countdowns in new PAGE
-
-    app.get('/countdowns', isLoggedIn, (req, res) => {
-      Countdowns.find({},function(err,data){
-        res.send(data);
-      });
-        /*res.render('countdowns.ejs', {
-            user : req.user,
-            countdownList: req.countdowns
-        });*/
-    });
-
     //CREATE countdowns
     app.post('/countdowns', isLoggedIn, (req, res) => {
-      console.log(req.body);
-      // if(!req.body.targetDate || req.body.targetDate == ''){
-      //   res.send('try again dumb dumb');
-      // }
       let newCountdown = req.body;
       newCountdown.user = ""+req.user._id+"";
-      console.log(newCountdown);
-      //const newCountdown = new Countdown();
       Countdowns.create(newCountdown,function(err,countdown){
         res.redirect('/profile');
       });
-
     });
 
     //UPDATE countdowns
 
-  app.post('/countdowns/:id', isLoggedIn, (req, res) => {
+    app.post('/countdowns/:id', isLoggedIn, (req, res) => {
       //Ensure valid request to update
       const requiredFields = ['title', 'targetDate', 'id', 'notes'];
       for (let i=0; i<requiredFields.length; i++) {
