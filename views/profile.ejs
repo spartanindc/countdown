@@ -53,11 +53,11 @@
                 <form action="/countdowns" method="post">
                   <div class="">
                     <label for="title" class="active">Title for Countdown</label>
-                    <input type="text" class="" name="title">
+                    <input type="text" class="" name="title" autofocus required>
                   </div>
                   <div class="">
                     <label for="target date" class="active">Target Date</label>
-                    <input type="date" class="" name="targetDate">
+                    <input type="date" class="" name="targetDate" required>
                   </div>
                   <div class="">
                     <label for="notes" class="active">Notes</label>
@@ -88,7 +88,6 @@
                 </p>
               </div>
 
-
               <div class="edit-countdown" hidden>
 
                 <p class="heading-update">Update Countdown</p>
@@ -97,11 +96,11 @@
 
                   <div class="">
                     <label for="title">Title for Countdown</label>
-                    <input type="text" name="title" value="<%= countdowns[i].title %>">
+                    <input type="text" name="title" value="<%= countdowns[i].title %>" required>
                   </div>
                   <div class="">
                     <label for="target date">Target Date</label>
-                    <input type="date" name="targetDate" value="<%= countdowns[i].targetDate %>">
+                    <input type="date" name="targetDate" value="<%= countdowns[i].targetDate %>" required>
                   </div>
                   <div class="">
                     <label for="notes">Notes</label>
@@ -117,15 +116,13 @@
 
               <button type="button" class="delete btn-small red darken-1" value="<%= countdowns[i]._id %>"><i class="material-icons">delete</i></button>
 
-              <% if((new Date(countdowns[i].targetDate+"T00:00:00").getTime() / 1000) - (new Date().getTime()/1000) > 0) { %>
+              <%  %>
 
               <div class="clock-<%=countdowns[i]._id%>" data-time-left="<%=countdowns[i].targetDate%>" id="clock-<%=i%>"></div>
               <script type="text/javascript">
 
               </script>
-              <% } else { %>
-              <p class="finished">Countdown has finished!</p>
-              <% } %>
+
             </div>
             <% } %>
           </div>

@@ -75,6 +75,9 @@ module.exports = (app, passport) => {
     //CREATE countdowns
     app.post('/countdowns', isLoggedIn, (req, res) => {
       console.log(req.body);
+      // if(!req.body.targetDate || req.body.targetDate == ''){
+      //   res.send('try again dumb dumb');
+      // }
       let newCountdown = req.body;
       newCountdown.user = ""+req.user._id+"";
       console.log(newCountdown);
