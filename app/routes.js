@@ -58,7 +58,7 @@ module.exports = (app, passport) => {
       });
     });
 
-// COUNTDOWN CRUD SECTION
+// COUNTDOWN CRUD
 
     //CREATE countdowns
     app.post('/countdowns', isLoggedIn, (req, res) => {
@@ -87,7 +87,7 @@ module.exports = (app, passport) => {
           return res.status(400).send(message);
         }
       }
-      //Update
+      //Then update that countdown record
       const updated = {};
       const updateableFields = ['title', 'targetDate', 'notes'];
 
@@ -106,6 +106,7 @@ module.exports = (app, passport) => {
     });
 
     //DELETE countdowns
+    
     app.delete('/countdowns/:id', isLoggedIn, (req, res) => {
       Countdowns
         .findOneAndRemove({'_id' : req.params.id})

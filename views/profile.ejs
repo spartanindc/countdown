@@ -40,7 +40,7 @@
 
           <div class="center-align">
 
-            <h1>Countdowns</h1>
+            <h1>Countdown</h1>
             <p class='heading'>Dashboard for
               <%= user.local.email %>
             </p>
@@ -74,6 +74,7 @@
 
               <button type="button" aria-label="display create countdown form" class="create btn green darken-2"><i class="material-icons right">access_time</i>Create</button>
               <input type="hidden" id="countdowns-length" value="<%=countdowns.length%>"/>
+              
               <% for(var i=0; i<countdowns.length; i++) { %>
 
               <div class="countdown-data card green lighten-2">

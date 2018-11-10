@@ -45,18 +45,17 @@ function toggleUpdateButton() {
 
 // Delete
 
-//Delete Button Event Handler
+  //Delete Button Event Handler
 function deleteButton() {
   $('.delete').click(function() {
     deleteCountdown(this);
   });
 }
 
-//Delete AJAX call
+  //Delete AJAX call
 function deleteCountdown(self) {
 
   let countdownID = $(self).val();
-  console.log(countdownID,$(self).val(),self);
 
   let prefix = '/countdowns/';
 
@@ -73,7 +72,7 @@ function deleteCountdown(self) {
   });
 }
 
-//Run Button Handlers
+//Run Button Event Handlers
 function runButtons() {
   createButton();
   toggleUpdateButton();
