@@ -25,7 +25,7 @@ require('./config/passport')(passport);
 
 //Express Setup
 
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(cookieParser());
 app.use(bodyParser.json());
