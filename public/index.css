@@ -1,6 +1,7 @@
 body {
   background-color: #c8e6c9;
   font-family: "Fira Sans", sans-serif;
+  width: auto;
 }
 h1 {
   font-family: "Carme", sans-serif;
@@ -110,4 +111,13 @@ footer {
     right: auto;
     top: auto;
   }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.title > a {
+  padding-bottom: 10px;
 }
