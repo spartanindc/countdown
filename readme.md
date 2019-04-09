@@ -12,6 +12,10 @@ Each user will create an account and have a dashboard containing all countdowns 
 
 ![Screenshot](cd-screenshot.png)
 
+## API Documentation
+
+[API Docs](https://app.swaggerhub.com/apis-docs/spartanindc/Countdown/1.0.0)
+
 ## Technology used
 
 - HTML
